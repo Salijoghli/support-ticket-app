@@ -13,7 +13,7 @@ export const Header = () => {
           </Link>
         </li>
         <li>
-          <Link to="/Register">
+          <Link to="/register">
             <FaSignOutAlt /> Register
           </Link>
         </li>
