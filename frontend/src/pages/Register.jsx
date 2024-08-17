@@ -4,6 +4,7 @@ import { FaUser } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { register, reset } from "../features/auth/authSlice";
 import { toast } from "react-toastify";
+import { Spinner } from "../components/Spinner";
 
 const defaultData = {
   name: "",
@@ -25,12 +26,13 @@ const Register = () => {
   );
 
   useEffect(() => {
+    if (isError) {
+      toast.error(message || "An error occurred");
+    }
     if (isSuccess && user) navigate("/");
 
-    if (isError) toast.error(message);
-
     dispatch(reset());
-  }, [user, isError, isSuccess, message]);
+  }, [user, isError, isSuccess, message, dispatch, navigate]);
 
   const onChange = (e) => {
     setFormData((prevData) => ({
@@ -49,6 +51,8 @@ const Register = () => {
     };
     dispatch(register(userData));
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>
